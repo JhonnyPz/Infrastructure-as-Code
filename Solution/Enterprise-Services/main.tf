@@ -32,21 +32,22 @@ module "azure-network" {
   prefix           = var.prefix
   rg_name          = azurerm_resource_group.rg.name
   location         = azurerm_resource_group.rg.location
-  address_space    = "172.24.0.0/16"
-  address_prefixes = "172.24.10.0/24"
+  address_space    = var.Vnet
+  address_prefixes = var.Snet
 }
 
 # Create private and public DNS, Application Gateway and VPN Gateway
- 
+
 # Create a virtual machine scale set
-/*module "azure-app" {
-  source = "./modules/azure-app"
+module "azure-app" {
+  source = "./modules/azure-app/windows"
 
   prefix    = var.prefix
   rg_name   = azurerm_resource_group.rg.name
   location  = azurerm_resource_group.rg.location
-  subnet_id = module.azure-network.id
+  subnet_id = module.azure-network.snet-id
 
-  admin_username = "adminuser"
-  admin_password = "Password_1234"
-}*/
+  instances      = var.instances
+  admin_username = var.admin_username
+  admin_password = var.admin_password
+}

@@ -1,9 +1,9 @@
-resource "azurerm_linux_virtual_machine_scale_set" "lvmss" {
-  name                            = "TFvmss-${var.prefix}"
+resource "azurerm_linux_virtual_machine_scale_set" "vmss" {
+  name                            = "TFvmss-linux-${var.prefix}"
   resource_group_name             = var.rg_name
   location                        = var.location
   sku                             = "Standard_F2s_v2"
-  instances                       = 2
+  instances                       = var.instances
   admin_username                  = var.admin_username
   admin_password                  = var.admin_password
   disable_password_authentication = false

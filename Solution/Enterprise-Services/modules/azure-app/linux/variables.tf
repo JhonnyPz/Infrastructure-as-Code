@@ -14,6 +14,10 @@ variable "subnet_id" {
   type = string
 }
 
+variable "instances" {
+  type = number
+}
+
 variable "admin_username" {
   type = string
 }
