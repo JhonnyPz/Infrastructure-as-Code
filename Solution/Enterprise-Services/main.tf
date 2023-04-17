@@ -40,7 +40,7 @@ module "azure-network" {
 
 # Create a virtual machine scale set
 module "azure-app" {
-  source = "./modules/azure-app/windows"
+  source = "./modules/azure-app/linux"
 
   prefix    = var.prefix
   rg_name   = azurerm_resource_group.rg.name
