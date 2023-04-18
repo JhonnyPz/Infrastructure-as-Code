@@ -1,19 +1,19 @@
-output "snet-id" {
-  value = azurerm_subnet.snet.id
-}
-
 output "vnet-name" {
   value = azurerm_virtual_network.vnet.name
 }
 
-output "vnet-address_space" {
+output "vnet-address" {
   value = azurerm_virtual_network.vnet.address_space
 }
 
-output "snet-name" {
-  value = azurerm_subnet.snet.name
+output "snet-vmss-name" {
+  value = azurerm_subnet.snet-vmss.name
 }
 
-output "snet-address_prefixes" {
-  value = azurerm_subnet.snet.address_prefixes
+output "snet-vmss-address" {
+  value = azurerm_subnet.snet-vmss.address_prefixes
+}
+
+output "snet-vmss-id" {
+  value = azurerm_subnet.snet-vmss.id
 }

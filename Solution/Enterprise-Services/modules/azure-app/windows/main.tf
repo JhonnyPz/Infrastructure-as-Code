@@ -1,5 +1,5 @@
 resource "azurerm_windows_virtual_machine_scale_set" "vmss" {
-  name                 = "TFvmss-windows-${var.prefix}"
+  name                 = "TFVMSS-windows-${var.prefix}"
   resource_group_name  = var.rg_name
   location             = var.location
   sku                  = "Standard_F2s_v2"
@@ -27,7 +27,8 @@ resource "azurerm_windows_virtual_machine_scale_set" "vmss" {
     ip_configuration {
       name      = "vmss-vnet-${var.prefix}"
       primary   = true
-      subnet_id = var.subnet_id
+      subnet_id                                    = var.subnet_id
+      application_gateway_backend_address_pool_ids = [var.appgateway_backpool_id]
     }
   }
 }

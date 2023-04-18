@@ -10,10 +10,6 @@ variable "location" {
   type = string
 }
 
-variable "subnet_id" {
-  type = string
-}
-
 variable "instances" {
   type = number
 }
@@ -23,5 +19,13 @@ variable "admin_username" {
 }
 
 variable "admin_password" {
+  type = string
+}
+
+variable "subnet_id" {
+  type = string
+}
+
+variable "appgateway_backpool_id" {
   type = string
 }

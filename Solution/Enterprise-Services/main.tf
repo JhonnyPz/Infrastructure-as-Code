@@ -32,22 +32,36 @@ module "azure-network" {
   prefix           = var.prefix
   rg_name          = azurerm_resource_group.rg.name
   location         = azurerm_resource_group.rg.location
-  address_space    = var.Vnet
-  address_prefixes = var.Snet
+  address_space    = var.vnet_address
+  address_prefixes = var.snet_vmss_address
 }
 
 # Create private and public DNS, Application Gateway and VPN Gateway
+module "azure-routing-appgt" {
+  source = "./modules/azure-routing/app-gateway"
+
+  prefix   = var.prefix
+  rg_name  = azurerm_resource_group.rg.name
+  location = azurerm_resource_group.rg.location
+
+  vnet_name        = module.azure-network.vnet-name
+  address_prefixes = var.snet_appgt_address
+}
 
 # Create a virtual machine scale set
 module "azure-app" {
   source = "./modules/azure-app/linux"
 
-  prefix    = var.prefix
-  rg_name   = azurerm_resource_group.rg.name
-  location  = azurerm_resource_group.rg.location
-  subnet_id = module.azure-network.snet-id
+  prefix   = var.prefix
+  rg_name  = azurerm_resource_group.rg.name
+  location = azurerm_resource_group.rg.location
 
-  instances      = var.instances
+  instances      = var.num_instances
   admin_username = var.admin_username
   admin_password = var.admin_password
+
+  subnet_id              = module.azure-network.snet-vmss-id
+  appgateway_backpool_id = module.azure-routing-appgt.app-gateway-pool-id
+
+  depends_on = [module.azure-routing-appgt]
 }

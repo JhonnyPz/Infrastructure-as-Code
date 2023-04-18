@@ -1,5 +1,5 @@
 resource "azurerm_linux_virtual_machine_scale_set" "vmss" {
-  name                            = "TFvmss-linux-${var.prefix}"
+  name                            = "TFVMSS-linux-${var.prefix}"
   resource_group_name             = var.rg_name
   location                        = var.location
   sku                             = "Standard_F2s_v2"
@@ -25,9 +25,10 @@ resource "azurerm_linux_virtual_machine_scale_set" "vmss" {
     primary = true
 
     ip_configuration {
-      name      = "vmss-vnet-${var.prefix}"
-      primary   = true
-      subnet_id = var.subnet_id
+      name                                         = "vmss-vnet-${var.prefix}"
+      primary                                      = true
+      subnet_id                                    = var.subnet_id
+      application_gateway_backend_address_pool_ids = [var.appgateway_backpool_id]
     }
   }
 }

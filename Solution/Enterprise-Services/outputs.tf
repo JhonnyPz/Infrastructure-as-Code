@@ -15,19 +15,32 @@ output "vnet-name" {
   description = "description"
 }
 
-output "vnet-address_space" {
-  value       = module.azure-network.vnet-address_space
+output "vnet-address-space" {
+  value       = module.azure-network.vnet-address
   description = "description"
 }
 
-output "snet-name" {
-  value       = module.azure-network.snet-name
+output "snet-def-name" {
+  value       = module.azure-network.snet-def-name
   description = "description"
 }
 
-output "snet-address_prefixes" {
-  value       = module.azure-network.snet-address_prefixes
+output "snet-def-address" {
+  value       = module.azure-network.snet-def-address
   description = "description"
+}
+
+# Outputs Application Gateway and VPN Gateway
+output "snet-appgt-name" {
+  value = module.azure-routing-appgt.snet-appgt-name
+}
+
+output "snet-appgt-address" {
+  value = module.azure-routing-appgt.snet-appgt-address
+}
+
+output "app-gateway-name" {
+  value = module.azure-routing-appgt.app-gateway-name
 }
 
 # Outputs Virtual Machine Scale Set VMSS
