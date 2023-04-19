@@ -9,12 +9,12 @@ resource "azurerm_public_ip" "ip-appgt" {
   name                = "TFIP-appgt-${var.prefix}"
   resource_group_name = var.rg_name
   location            = var.location
-  sku                 = "Standard"
   allocation_method   = "Static"
+  sku                 = "Standard"
 }
 
 resource "azurerm_application_gateway" "appgateway" {
-  name                = "TFAppgt-${var.prefix}"
+  name                = "TFAPPgt-${var.prefix}"
   resource_group_name = var.rg_name
   location            = var.location
 

@@ -14,7 +14,7 @@ provider "azurerm" {
   features {}
 }
 
-# Create a resource Group
+# Create resource Group
 resource "azurerm_resource_group" "rg" {
   name     = "TFRG-${var.prefix}"
   location = var.location
@@ -25,7 +25,7 @@ resource "azurerm_resource_group" "rg" {
   }
 }
 
-# Create a virtual network and subnet
+# Create virtual network and subnet
 module "azure-network" {
   source = "./modules/azure-network"
 
@@ -36,7 +36,8 @@ module "azure-network" {
   address_prefixes = var.snet_vmss_address
 }
 
-# Create private and public DNS, Application Gateway and VPN Gateway
+# Create Application Gateway
+/*
 module "azure-routing-appgt" {
   source = "./modules/azure-routing/app-gateway"
 
@@ -47,8 +48,28 @@ module "azure-routing-appgt" {
   vnet_name        = module.azure-network.vnet-name
   address_prefixes = var.snet_appgt_address
 }
+*/
+
+# Create public and private DNS
+/*
+module "azure-routing-dnszone" {
+  source = "./modules/azure-routing/dns-zone"
+
+  prefix  = var.prefix
+  rg_name = azurerm_resource_group.rg.name
+
+  domain_public_name = var.domain_public_name
+  ip_appgt           = module.azure-routing-appgt.ip-appgt-id
+
+  domain_private_name = var.domain_private_name
+  vnet_id             = module.azure-network.vnet-id
+
+  depends_on = [module.azure-routing-appgt]
+}
+*/
 
 # Create a virtual machine scale set
+/*
 module "azure-app" {
   source = "./modules/azure-app/linux"
 
@@ -65,3 +86,18 @@ module "azure-app" {
 
   depends_on = [module.azure-routing-appgt]
 }
+*/
+
+# Create VPN Gateway
+/*
+module "azure-routing-vpngt" {
+  source = "./modules/azure-routing/vpn-gateway"
+
+  prefix   = var.prefix
+  rg_name  = azurerm_resource_group.rg.name
+  location = azurerm_resource_group.rg.location
+
+  vnet_name        = module.azure-network.vnet-name
+  address_prefixes = var.snet_vpngt_address
+}
+*/

@@ -10,11 +10,11 @@ variable "location" {
   type = string
 }
 
-variable "address_prefixes" {
+variable "vnet_name" {
   type = string
 }
 
-variable "vnet_name" {
+variable "address_prefixes" {
   type = string
 }
 

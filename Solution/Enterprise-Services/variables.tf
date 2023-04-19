@@ -31,6 +31,25 @@ variable "snet_appgt_address" {
   description = "description"
 }
 
+variable "snet_vpngt_address" {
+  type        = string
+  default     = "172.24.30.0/24"
+  description = "description"
+}
+
+# Variables Public and Private DNS
+variable "domain_public_name" {
+  type        = string
+  default     = "example.com"
+  description = "description"
+}
+
+variable "domain_private_name" {
+  type        = string
+  default     = "example.internal"
+  description = "description"
+}
+
 # Variables Virtual Machine Scale Set VMSS
 variable "num_instances" {
   type        = number

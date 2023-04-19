@@ -20,17 +20,18 @@ output "vnet-address-space" {
   description = "description"
 }
 
-output "snet-def-name" {
-  value       = module.azure-network.snet-def-name
+output "snet-vmss-name" {
+  value       = module.azure-network.snet-vmss-name
   description = "description"
 }
 
-output "snet-def-address" {
-  value       = module.azure-network.snet-def-address
+output "snet-vmss-address" {
+  value       = module.azure-network.snet-vmss-address
   description = "description"
 }
 
-# Outputs Application Gateway and VPN Gateway
+# Outputs Application Gateway
+/*
 output "snet-appgt-name" {
   value = module.azure-routing-appgt.snet-appgt-name
 }
@@ -42,8 +43,23 @@ output "snet-appgt-address" {
 output "app-gateway-name" {
   value = module.azure-routing-appgt.app-gateway-name
 }
+*/
+# Outputs VPN Gateway
+/*
+output "snet-vpngt-name" {
+  value = module.azure-routing-vpngt.snet-vpngt-name
+}
 
+output "snet-vpngt-address" {
+  value = module.azure-routing-vpngt.snet-vpngt-address
+}
+
+output "vpn-gateway-name" {
+  value = module.azure-routing-vpngt.vpn-gateway-name
+}
+*/
 # Outputs Virtual Machine Scale Set VMSS
+/*
 output "vmss-name" {
   value       = module.azure-app.vmss-name
   description = "description"
@@ -62,5 +78,26 @@ output "vmss-user" {
 output "vmss-password" {
   value       = module.azure-app.vmss-password
   sensitive   = true
+  description = "description"
+}
+*/
+# Outputs private and public DNS
+output "domain-public-name" {
+  value       = module.azure-routing-dnszone.domain-public
+  description = "description"
+}
+
+output "domain-public-a" {
+  value       = module.azure-routing-dnszone.domain-public-a
+  description = "description"
+}
+
+output "domain-private-name" {
+  value       = module.azure-routing-dnszone.domain-private
+  description = "description"
+}
+
+output "private-dns-vnetlink" {
+  value       = module.azure-routing-dnszone.private-dns-vnetlink
   description = "description"
 }
