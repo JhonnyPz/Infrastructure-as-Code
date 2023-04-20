@@ -9,7 +9,7 @@ output "rg-location" {
   description = "output location resource group"
 }
 
-# Outputs Virtual Network and Subnet
+# Outputs Virtual Network
 output "vnet-name" {
   value       = module.azure-network.vnet-name
   description = "description"
@@ -20,6 +20,12 @@ output "vnet-address-space" {
   description = "description"
 }
 
+# Outputs Network Security Group
+output "nsg-name" {
+  value = module.azure-security-nsg.nsg-name
+}
+
+# Subnet Virtual Machine Scale Set
 output "snet-vmss-name" {
   value       = module.azure-network.snet-vmss-name
   description = "description"
@@ -30,13 +36,7 @@ output "snet-vmss-address" {
   description = "description"
 }
 
-# Outputs Network Security Group
-output "nsg-name" {
-  value = module.azure-security-nsg.nsg-name
-}
-
-# Outputs Azure Firewall
-/*
+# Subnet Firewall
 output "snet-fw-name" {
   value = module.azure-firewall.snet-fw-name
 }
@@ -45,16 +45,7 @@ output "snet-fw-address" {
   value = module.azure-firewall.snet-fw-address
 }
 
-output "firewall-policy" {
-  value = module.azure-firewall.firewall-policy
-}
-
-output "firewall" {
-  value = module.azure-firewall.firewall
-}
-*/
-# Outputs Application Gateway
-/*
+# Subnet Application Gateway
 output "snet-appgt-name" {
   value = module.azure-routing-appgt.snet-appgt-name
 }
@@ -63,12 +54,7 @@ output "snet-appgt-address" {
   value = module.azure-routing-appgt.snet-appgt-address
 }
 
-output "app-gateway-name" {
-  value = module.azure-routing-appgt.app-gateway-name
-}
-*/
-# Outputs VPN Gateway
-/*
+# Subnet VPN Gateway
 output "snet-vpngt-name" {
   value = module.azure-routing-vpngt.snet-vpngt-name
 }
@@ -77,12 +63,26 @@ output "snet-vpngt-address" {
   value = module.azure-routing-vpngt.snet-vpngt-address
 }
 
+# Outputs Azure Firewall
+output "firewall" {
+  value = module.azure-firewall.firewall
+}
+
+output "firewall-policy" {
+  value = module.azure-firewall.firewall-policy
+}
+
+# Outputs Application Gateway
+output "app-gateway-name" {
+  value = module.azure-routing-appgt.app-gateway-name
+}
+
+# Outputs VPN Gateway
 output "vpn-gateway-name" {
   value = module.azure-routing-vpngt.vpn-gateway-name
 }
-*/
+
 # Outputs Virtual Machine Scale Set VMSS
-/*
 output "vmss-name" {
   value       = module.azure-app.vmss-name
   description = "description"
@@ -103,9 +103,8 @@ output "vmss-password" {
   sensitive   = true
   description = "description"
 }
-*/
-# Outputs private and public DNS
-/*
+
+# Outputs public DNS
 output "domain-public-name" {
   value       = module.azure-routing-dnszone.domain-public
   description = "description"
@@ -116,6 +115,7 @@ output "domain-public-a" {
   description = "description"
 }
 
+# Outputs private DNS
 output "domain-private-name" {
   value       = module.azure-routing-dnszone.domain-private
   description = "description"
@@ -125,13 +125,14 @@ output "private-dns-vnetlink" {
   value       = module.azure-routing-dnszone.private-dns-vnetlink
   description = "description"
 }
-*/
 
+# Outputs Azure Recovery Service
 output "rs-vault" {
   value       = module.azure-backup.rs-vault
   description = "description"
 }
 
+# Outputs Azure Backup
 output "backup-policy-vmss" {
   value       = module.azure-backup.backup-policy-vmss
   description = "description"

@@ -49,9 +49,9 @@ module "azure-security-nsg" {
 module "azure-security-firewall" {
   source = "./modules/azure-security/firewall"
 
-  prefix           = var.prefix
-  rg_name          = azurerm_resource_group.rg.name
-  location         = azurerm_resource_group.rg.location
+  prefix   = var.prefix
+  rg_name  = azurerm_resource_group.rg.name
+  location = azurerm_resource_group.rg.location
 
   vnet_name        = module.azure-network.vnet-name
   address_prefixes = var.snet_fw_address
