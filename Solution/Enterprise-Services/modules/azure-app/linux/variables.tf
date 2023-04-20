@@ -22,6 +22,10 @@ variable "admin_password" {
   type = string
 }
 
+variable "nsg_id" {
+  type = string
+}
+
 variable "subnet_id" {
   type = string
 }

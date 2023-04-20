@@ -1,5 +1,5 @@
 resource "azurerm_windows_virtual_machine_scale_set" "vmss" {
-  name                 = "TFVMSS-windows-${var.prefix}"
+  name                 = "TFvmss-windows-${var.prefix}"
   resource_group_name  = var.rg_name
   location             = var.location
   sku                  = "Standard_F2s_v2"
@@ -23,6 +23,7 @@ resource "azurerm_windows_virtual_machine_scale_set" "vmss" {
   network_interface {
     name    = "nic-${var.prefix}"
     primary = true
+    network_security_group_id = var.nsg_id
 
     ip_configuration {
       name      = "vmss-vnet-${var.prefix}"

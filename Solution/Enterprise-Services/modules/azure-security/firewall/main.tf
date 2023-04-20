@@ -6,22 +6,22 @@ resource "azurerm_subnet" "snet-fw" {
 }
 
 resource "azurerm_public_ip" "ip-fw" {
-  name                = "TFIP-fw-${var.prefix}"
+  name                = "TFip-fw-${var.prefix}"
   resource_group_name = var.rg_name
   location            = var.location
   allocation_method   = "Static"
   sku                 = "Standard"
 }
 
-resource "azurerm_firewall_policy" "firewall-policy" {
-    name = "tffirewall-policy-${var.prefix}"
+resource "azurerm_firewall_policy" "fw-policy" {
+    name = "TFfw-policy-${var.prefix}"
     resource_group_name = var.rg_name
     location = var.location
     sku = "Standard"
 }
 
 resource "azurerm_firewall" "fw" {
-    name = "TFFW-${var.prefix}"
+    name = "TFfw-${var.prefix}"
     resource_group_name = var.rg_name
     location = var.location
     sku_name = "AZFW_VNet"

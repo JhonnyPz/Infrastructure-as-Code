@@ -7,7 +7,7 @@ output "snet-fw-address" {
 }
 
 output "firewall-policy" {
-  value = azurerm_firewall_policy.firewall-policy.name
+  value = azurerm_firewall_policy.fw-policy.name
 }
 
 output "firewall" {

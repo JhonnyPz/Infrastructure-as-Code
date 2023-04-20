@@ -7,5 +7,5 @@ output "snet-vpngt-address" {
 }
 
 output "vpn-gateway-name" {
-  value = azurerm_virtual_network_gateway.vpngateway.name
+  value = azurerm_virtual_network_gateway.vpn-gateway.name
 }

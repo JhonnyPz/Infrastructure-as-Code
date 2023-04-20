@@ -126,3 +126,14 @@ output "private-dns-vnetlink" {
   description = "description"
 }
 */
+
+output "rs-vault" {
+  value       = module.azure-backup.rs-vault
+  description = "description"
+}
+
+output "backup-policy-vmss" {
+  value       = module.azure-backup.backup-policy-vmss
+  description = "description"
+}
+

@@ -7,7 +7,7 @@ output "snet-appgt-address" {
 }
 
 output "app-gateway-name" {
-  value = azurerm_application_gateway.appgateway.name
+  value = azurerm_application_gateway.app-gateway.name
 }
 
 output "ip-appgt-id" {
@@ -15,5 +15,5 @@ output "ip-appgt-id" {
 }
 
 output "app-gateway-pool-id" {
-  value = [for pool in azurerm_application_gateway.appgateway.backend_address_pool : pool.name == local.backend_address_pool_name ? pool.id : null][0]
+  value = [for pool in azurerm_application_gateway.app-gateway.backend_address_pool : pool.name == local.backend_address_pool_name ? pool.id : null][0]
 }

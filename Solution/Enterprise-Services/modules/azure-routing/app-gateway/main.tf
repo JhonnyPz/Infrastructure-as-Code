@@ -1,20 +1,20 @@
 resource "azurerm_subnet" "snet-appgt" {
-  name                 = "TFSnet-appgt-${var.prefix}"
+  name                 = "TFsnet-appgt-${var.prefix}"
   resource_group_name  = var.rg_name
   virtual_network_name = var.vnet_name
   address_prefixes     = [var.address_prefixes]
 }
 
 resource "azurerm_public_ip" "ip-appgt" {
-  name                = "TFIP-appgt-${var.prefix}"
+  name                = "TFip-appgt-${var.prefix}"
   resource_group_name = var.rg_name
   location            = var.location
   allocation_method   = "Static"
   sku                 = "Standard"
 }
 
-resource "azurerm_application_gateway" "appgateway" {
-  name                = "TFAPPgt-${var.prefix}"
+resource "azurerm_application_gateway" "app-gateway" {
+  name                = "TFappgt-${var.prefix}"
   resource_group_name = var.rg_name
   location            = var.location
 

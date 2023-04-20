@@ -6,15 +6,15 @@ resource "azurerm_subnet" "snet-vpngt" {
 }
 
 resource "azurerm_public_ip" "ip-vpngt" {
-  name                = "TFIP-vpngt-${var.prefix}"
+  name                = "TFip-vpngt-${var.prefix}"
   resource_group_name = var.rg_name
   location            = var.location
   allocation_method   = "Static"
   sku                 = "Standard"
 }
 
-resource "azurerm_virtual_network_gateway" "vpngateway" {
-    name = "TFVPNgt-${var.prefix}"
+resource "azurerm_virtual_network_gateway" "vpn-gateway" {
+    name = "TFvpngt-${var.prefix}"
     resource_group_name = var.rg_name
     location = var.location
 

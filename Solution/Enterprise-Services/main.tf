@@ -14,7 +14,7 @@ provider "azurerm" {
   features {}
 }
 
-# Create resource Group
+# Create resource Group : 5sec
 resource "azurerm_resource_group" "rg" {
   name     = "TFRG-${var.prefix}"
   location = var.location
@@ -25,7 +25,7 @@ resource "azurerm_resource_group" "rg" {
   }
 }
 
-# Create virtual network and subnet
+# Create virtual network and subnet : 10sec
 module "azure-network" {
   source = "./modules/azure-network"
 
@@ -36,17 +36,16 @@ module "azure-network" {
   address_prefixes = var.snet_vmss_address
 }
 
-# Create Network Security Group
+# Create Network Security Group : 10sec
 module "azure-security-nsg" {
   source = "./modules/azure-security/nsg"
 
-  prefix           = var.prefix
-  rg_name          = azurerm_resource_group.rg.name
-  location         = azurerm_resource_group.rg.location
+  prefix   = var.prefix
+  rg_name  = azurerm_resource_group.rg.name
+  location = azurerm_resource_group.rg.location
 }
 
-# Create Azure Firewall
-/*
+# Create Azure Firewall : 5min
 module "azure-security-firewall" {
   source = "./modules/azure-security/firewall"
 
@@ -57,9 +56,8 @@ module "azure-security-firewall" {
   vnet_name        = module.azure-network.vnet-name
   address_prefixes = var.snet_fw_address
 }
-*/
-# Create Application Gateway
-//*
+
+# Create Application Gateway : 5min
 module "azure-routing-appgt" {
   source = "./modules/azure-routing/app-gateway"
 
@@ -70,10 +68,8 @@ module "azure-routing-appgt" {
   vnet_name        = module.azure-network.vnet-name
   address_prefixes = var.snet_appgt_address
 }
-//*/
 
-# Create a virtual machine scale set
-//*
+# Create a virtual machine scale set : 2min
 module "azure-app" {
   source = "./modules/azure-app/linux"
 
@@ -85,15 +81,14 @@ module "azure-app" {
   admin_username = var.admin_username
   admin_password = var.admin_password
 
+  nsg_id                 = module.azure-security-nsg.nsg-id
   subnet_id              = module.azure-network.snet-vmss-id
   appgateway_backpool_id = module.azure-routing-appgt.app-gateway-pool-id
 
   depends_on = [module.azure-routing-appgt]
 }
-//*/
 
-# Create public and private DNS
-/*
+# Create public and private DNS : 3min
 module "azure-routing-dnszone" {
   source = "./modules/azure-routing/dns-zone"
 
@@ -108,10 +103,17 @@ module "azure-routing-dnszone" {
 
   depends_on = [module.azure-routing-appgt]
 }
-*/
+
+# Create Azure Recovery Services and Backups : 1min
+module "azure-backup" {
+  source = "./modules/azure-backup"
+
+  prefix   = var.prefix
+  rg_name  = azurerm_resource_group.rg.name
+  location = azurerm_resource_group.rg.location
+}
 
 # Create VPN Gateway : 30min
-/*
 module "azure-routing-vpngt" {
   source = "./modules/azure-routing/vpn-gateway"
 
@@ -122,4 +124,3 @@ module "azure-routing-vpngt" {
   vnet_name        = module.azure-network.vnet-name
   address_prefixes = var.snet_vpngt_address
 }
-*/
