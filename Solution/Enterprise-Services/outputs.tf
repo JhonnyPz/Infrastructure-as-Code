@@ -30,6 +30,29 @@ output "snet-vmss-address" {
   description = "description"
 }
 
+# Outputs Network Security Group
+output "nsg-name" {
+  value = module.azure-security-nsg.nsg-name
+}
+
+# Outputs Azure Firewall
+/*
+output "snet-fw-name" {
+  value = module.azure-firewall.snet-fw-name
+}
+
+output "snet-fw-address" {
+  value = module.azure-firewall.snet-fw-address
+}
+
+output "firewall-policy" {
+  value = module.azure-firewall.firewall-policy
+}
+
+output "firewall" {
+  value = module.azure-firewall.firewall
+}
+*/
 # Outputs Application Gateway
 /*
 output "snet-appgt-name" {
@@ -82,6 +105,7 @@ output "vmss-password" {
 }
 */
 # Outputs private and public DNS
+/*
 output "domain-public-name" {
   value       = module.azure-routing-dnszone.domain-public
   description = "description"
@@ -101,3 +125,4 @@ output "private-dns-vnetlink" {
   value       = module.azure-routing-dnszone.private-dns-vnetlink
   description = "description"
 }
+*/

@@ -36,8 +36,30 @@ module "azure-network" {
   address_prefixes = var.snet_vmss_address
 }
 
-# Create Application Gateway
+# Create Network Security Group
+module "azure-security-nsg" {
+  source = "./modules/azure-security/nsg"
+
+  prefix           = var.prefix
+  rg_name          = azurerm_resource_group.rg.name
+  location         = azurerm_resource_group.rg.location
+}
+
+# Create Azure Firewall
 /*
+module "azure-security-firewall" {
+  source = "./modules/azure-security/firewall"
+
+  prefix           = var.prefix
+  rg_name          = azurerm_resource_group.rg.name
+  location         = azurerm_resource_group.rg.location
+
+  vnet_name        = module.azure-network.vnet-name
+  address_prefixes = var.snet_fw_address
+}
+*/
+# Create Application Gateway
+//*
 module "azure-routing-appgt" {
   source = "./modules/azure-routing/app-gateway"
 
@@ -48,7 +70,27 @@ module "azure-routing-appgt" {
   vnet_name        = module.azure-network.vnet-name
   address_prefixes = var.snet_appgt_address
 }
-*/
+//*/
+
+# Create a virtual machine scale set
+//*
+module "azure-app" {
+  source = "./modules/azure-app/linux"
+
+  prefix   = var.prefix
+  rg_name  = azurerm_resource_group.rg.name
+  location = azurerm_resource_group.rg.location
+
+  instances      = var.num_instances
+  admin_username = var.admin_username
+  admin_password = var.admin_password
+
+  subnet_id              = module.azure-network.snet-vmss-id
+  appgateway_backpool_id = module.azure-routing-appgt.app-gateway-pool-id
+
+  depends_on = [module.azure-routing-appgt]
+}
+//*/
 
 # Create public and private DNS
 /*
@@ -68,27 +110,7 @@ module "azure-routing-dnszone" {
 }
 */
 
-# Create a virtual machine scale set
-/*
-module "azure-app" {
-  source = "./modules/azure-app/linux"
-
-  prefix   = var.prefix
-  rg_name  = azurerm_resource_group.rg.name
-  location = azurerm_resource_group.rg.location
-
-  instances      = var.num_instances
-  admin_username = var.admin_username
-  admin_password = var.admin_password
-
-  subnet_id              = module.azure-network.snet-vmss-id
-  appgateway_backpool_id = module.azure-routing-appgt.app-gateway-pool-id
-
-  depends_on = [module.azure-routing-appgt]
-}
-*/
-
-# Create VPN Gateway
+# Create VPN Gateway : 30min
 /*
 module "azure-routing-vpngt" {
   source = "./modules/azure-routing/vpn-gateway"

@@ -25,7 +25,7 @@ resource "azurerm_application_gateway" "appgateway" {
 
   autoscale_configuration {
     min_capacity = 0
-    max_capacity = 10
+    max_capacity = 3
   }
 
   gateway_ip_configuration {
@@ -50,7 +50,6 @@ resource "azurerm_application_gateway" "appgateway" {
   backend_http_settings {
     name                  = local.http_setting_name
     cookie_based_affinity = "Disabled"
-    path                  = "/path1/"
     port                  = 80
     protocol              = "Http"
     request_timeout       = 60

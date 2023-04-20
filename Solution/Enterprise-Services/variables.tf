@@ -20,11 +20,18 @@ variable "vnet_address" {
 
 variable "snet_vmss_address" {
   type        = string
+  default     = "172.24.1.0/24"
+  description = "description"
+}
+
+# Variables Firewall
+variable "snet_fw_address" {
+  type        = string
   default     = "172.24.10.0/24"
   description = "description"
 }
 
-# Application Gateway and VPN Gateway
+# Variables Application Gateway and VPN Gateway
 variable "snet_appgt_address" {
   type        = string
   default     = "172.24.20.0/24"
@@ -40,13 +47,13 @@ variable "snet_vpngt_address" {
 # Variables Public and Private DNS
 variable "domain_public_name" {
   type        = string
-  default     = "example.com"
+  default     = "tfexample.com"
   description = "description"
 }
 
 variable "domain_private_name" {
   type        = string
-  default     = "example.internal"
+  default     = "tfexample.internal"
   description = "description"
 }
 
