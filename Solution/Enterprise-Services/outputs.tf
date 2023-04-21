@@ -38,11 +38,11 @@ output "snet-vmss-address" {
 
 # Subnet Firewall
 output "snet-fw-name" {
-  value = module.azure-firewall.snet-fw-name
+  value = module.azure-security-firewall.snet-fw-name
 }
 
 output "snet-fw-address" {
-  value = module.azure-firewall.snet-fw-address
+  value = module.azure-security-firewall.snet-fw-address
 }
 
 # Subnet Application Gateway
@@ -65,11 +65,11 @@ output "snet-vpngt-address" {
 
 # Outputs Azure Firewall
 output "firewall" {
-  value = module.azure-firewall.firewall
+  value = module.azure-security-firewall.firewall
 }
 
 output "firewall-policy" {
-  value = module.azure-firewall.firewall-policy
+  value = module.azure-security-firewall.firewall-policy
 }
 
 # Outputs Application Gateway

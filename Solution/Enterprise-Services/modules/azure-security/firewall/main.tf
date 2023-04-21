@@ -26,7 +26,7 @@ resource "azurerm_firewall" "fw" {
   location            = var.location
   sku_name            = "AZFW_VNet"
   sku_tier            = "Standard"
-  firewall_policy_id  = azurerm_firewall_policy.firewall-policy.id
+  firewall_policy_id  = azurerm_firewall_policy.fw-policy.id
 
   ip_configuration {
     name                 = "ipfw-config-${var.prefix}"
