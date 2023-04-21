@@ -25,7 +25,7 @@ resource "azurerm_resource_group" "rg" {
   }
 }
 
-# Create virtual network and subnet : 10sec
+# Create virtual network and subnet : 20sec
 module "azure-network" {
   source = "./modules/azure-network"
 
@@ -36,9 +36,18 @@ module "azure-network" {
   address_prefixes = var.snet_vmss_address
 }
 
-# Create Network Security Group : 10sec
+# Create Network Security Group : 20sec
 module "azure-security-nsg" {
   source = "./modules/azure-security/nsg"
+
+  prefix   = var.prefix
+  rg_name  = azurerm_resource_group.rg.name
+  location = azurerm_resource_group.rg.location
+}
+
+# Create Azure Recovery Services and Backups : 1min
+module "azure-backup" {
+  source = "./modules/azure-backup"
 
   prefix   = var.prefix
   rg_name  = azurerm_resource_group.rg.name
@@ -67,6 +76,8 @@ module "azure-routing-appgt" {
 
   vnet_name        = module.azure-network.vnet-name
   address_prefixes = var.snet_appgt_address
+
+  depends_on = [module.azure-security-firewall]
 }
 
 # Create a virtual machine scale set : 2min
@@ -88,7 +99,7 @@ module "azure-app" {
   depends_on = [module.azure-routing-appgt]
 }
 
-# Create public and private DNS : 3min
+# Create public and private DNS : 2min
 module "azure-routing-dnszone" {
   source = "./modules/azure-routing/dns-zone"
 
@@ -101,16 +112,7 @@ module "azure-routing-dnszone" {
   domain_private_name = var.domain_private_name
   vnet_id             = module.azure-network.vnet-id
 
-  depends_on = [module.azure-routing-appgt]
-}
-
-# Create Azure Recovery Services and Backups : 1min
-module "azure-backup" {
-  source = "./modules/azure-backup"
-
-  prefix   = var.prefix
-  rg_name  = azurerm_resource_group.rg.name
-  location = azurerm_resource_group.rg.location
+  depends_on = [module.azure-app]
 }
 
 # Create VPN Gateway : 30min
@@ -123,4 +125,6 @@ module "azure-routing-vpngt" {
 
   vnet_name        = module.azure-network.vnet-name
   address_prefixes = var.snet_vpngt_address
+
+  depends_on = [module.azure-routing-dnszone]
 }
