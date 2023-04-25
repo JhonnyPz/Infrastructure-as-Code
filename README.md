@@ -13,7 +13,7 @@ La infraestructura como código es el proceso de aprovisionamiento de recursos d
 
 > Guía: este repositorio contiene la implementación de varios proyectos.
 
-<br><br>
+<br>
 
 ## [Implementación (Deployment)](https://github.com/JhonnyPz/Infrastructure-as-Code/tree/main/Deployment "go to deployment")
 DevOps es una metodología que integra el desarrollo de software y las operaciones de TI para acelerar el ciclo de desarrollo y garantizar la entrega continua de soluciones de alta calidad. Las prácticas y herramientas de automatización en DevOps aumentan la eficiencia en la gestión de proyectos y reducen significativamente los tiempos de respuesta ante incidencias o cambios.
