@@ -7,7 +7,7 @@ trigger:
 pr:
   branches:
     include:
-    - main
+      - main
 
 variables:
   buildConfiguration: 'Release'
