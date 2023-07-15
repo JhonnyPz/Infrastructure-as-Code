@@ -1,7 +1,10 @@
 name: Azure app services CI-CD
 
 trigger:
-- '*'
+  branches:
+    include: main
+  pr:
+    include: main
 
 variables:
   buildConfiguration: 'Release'
@@ -62,9 +65,11 @@ stages:
     strategy:
       runOnce:
         deploy:
+
           steps:
           - download: current
             artifact: drop
+            
           - task: AzureWebApp@1
             displayName: 'Azure App Service Deploy'
             inputs:
