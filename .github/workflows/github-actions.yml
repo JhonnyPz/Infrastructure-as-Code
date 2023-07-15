@@ -5,7 +5,7 @@ on:
     branches: "*"
 
 env:
-  AZURE_WEBAPP_NAME: "webapp-cicd-example"
+  AZURE_WEBAPP_NAME: webapp-cicd-example
   AZURE_WEBAPP_PACKAGE_PATH: "."
   DOTNET_VERSION: "7.0.x"
 
@@ -36,14 +36,10 @@ jobs:
         run: dotnet build src/ --configuration Release
       - name: Publish
         run: dotnet publish src/ -c Release -o ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/myapp
-      - name: LS 1
-        run: ls
       - name: LS 2
         run: ls ./myapp
       - uses: actions/upload-artifact@v3
         with:
           name: myapp
-          path: ${{env.AZURE_WEBAPP_PACKAGE_PATH}}/myapp
-      - name: LS 3
-        run: ls ./myapp
+          path: ./src/wwwroot
   
