@@ -41,4 +41,4 @@ jobs:
           name: myapp
           path: ${{env.AZURE_WEBAPP_PACKAGE_PATH}}/myapp
       - name: Test LS
-        run: pwd & ls & ls env.AZURE_WEBAPP_PACKAGE_PATH/myapp
+        run: pwd & ls & ls ./myapp
