@@ -1,4 +1,4 @@
-name: CICD-AzureAppSer
+name: Azure app services CI-CD
 
 on:
   push:
@@ -8,9 +8,9 @@ on:
     types: [opened, synchronize]
 
 env:
-  AZURE_WEBAPP_NAME: webapp-cicd-example  
+  AZURE_WEBAPP_NAME: webapp-cicd-example
   AZURE_WEBAPP_PACKAGE_PATH: "."
-  DOTNET_VERSION: "7.0.x"
+  DOTNET_VERSION: "6.0.x"
 
 defaults:
   run:
@@ -38,19 +38,19 @@ jobs:
       - name: Build
         run: dotnet build src/ --configuration Release
       - name: Publish
-        run: dotnet publish src/ -c Release -o ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/myapp
+        run: dotnet publish src/ -c Release -o ${{env.DOTNET_ROOT}}/myapp
       - uses: actions/upload-artifact@v3
         with:
           name: myapp
-          path: ${{env.AZURE_WEBAPP_PACKAGE_PATH}}/myapp
-    
+          path: ${{env.DOTNET_ROOT}}/myapp
+  
   deploy:
     if: ${{ github.event_name == 'push' }}
     runs-on: ubuntu-22.04
     needs: build
-    #environment:
-      #name: "production"
-      #url: ${{ steps.deploy-to-webapp.outputs.url }}
+    environment:
+      name: "Development"
+      url: ${{ steps.deploy-to-webapp.outputs.url }}
     
     steps:
       - uses: actions/download-artifact@v3
