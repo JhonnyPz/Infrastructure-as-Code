@@ -5,7 +5,7 @@ on:
     branches: "*"
 
 env:
-  AZURE_WEBAPP_NAME: webapp-cicd-example  
+  AZURE_WEBAPP_NAME: "webapp-cicd-example"
   AZURE_WEBAPP_PACKAGE_PATH: "."
   DOTNET_VERSION: "7.0.x"
 
@@ -32,3 +32,5 @@ jobs:
       - uses: actions/setup-dotnet@v3
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
+      - name: Test PWD
+        run: pwd
