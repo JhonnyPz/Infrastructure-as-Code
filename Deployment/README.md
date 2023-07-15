@@ -44,8 +44,8 @@ cd Pipelines
 ```
 3. Crear una ruta de carpetas en la raiz del prouyecto con el nombre `.github/workflows` y copie el archivo `github-actions.yml`
 ```bash
-mkdir ../.github/workflows
-cp github-actions.yml ../.github/workflows
+mkdir ../../../.github/workflows
+cp github-actions.yml ../../../.github/workflows
 ```
 > **Nota**: Revis el archivo yml y configura las variables en GiHuh con el mismo nombre. Los valores de las variables los puedes encontrar en el `README` de los proyecto
 
