@@ -59,11 +59,11 @@ cd Infrastructure-as-Code/Deployment/Web-Application
 ```bash
 cd Pipelines
 ```
-3. Copie el archivo `azure-pipelines.yml` y peguelo en la raiz de projecto
+3. Copia la ruta de archivo `azure-pipelines.yml`
 ```bash
-cp azure-pipelines.yml ../../../
+/Deployment/Web-Application/Pipelines/azure-pipelines.yml
 ```
-4. Crea un proyecto en azure devops, vincula el repositorio de github y configura la canalizacion en azure pipelines
+4. Crea un proyecto en azure devops, vincula el repositorio de github y configura la canalizacion en azure pipelines con la ruta antes copiada.
 
 [Configuracion Azure DevOps](https://learn.microsoft.com/es-es/azure/devops/pipelines/create-first-pipeline?view=azure-devops&tabs=java%2Ctfs-2018-2%2Cbrowser#prerequisites---azure-devops "Azure Devops")
 

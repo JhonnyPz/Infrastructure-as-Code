@@ -25,6 +25,12 @@ stages:
       inputs:
         version: '$(dotnetSdkVersion)'
     
+    - task: DotNetCoreCLI@2
+      displayName: 'Restore project dependencies'
+      inputs:
+        command: 'restore'
+        projects: '**/*.csproj'
+    
     - script: |
         pwd
         ls
