@@ -1,0 +1,34 @@
+name: CICD-AzureAppSer
+
+on:
+  push:
+    branches: "*"
+
+env:
+  AZURE_WEBAPP_NAME: webapp-cicd-example  
+  AZURE_WEBAPP_PACKAGE_PATH: "."
+  DOTNET_VERSION: "7.0.x"
+
+defaults:
+  run:
+    working-directory: ./Deployment/Web-Application/
+
+jobs:
+
+  avoid_reduncy:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Cancel Previous Redundant Build
+        uses: styfle/cancel-workflow-action@0.9.1
+        with:
+          access_token: ${{ github.token }}
+
+  build:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
