@@ -14,7 +14,6 @@ stages:
     displayName: 'Build job'
     pool:
       vmImage: 'ubuntu-20.04'
-
     variables:
       dotnetSdkVersion: '6.x'
 
@@ -48,3 +47,26 @@ stages:
 
     - publish: '$(Build.ArtifactStagingDirectory)'
       artifact: drop
+
+- stage: 'Deploy'
+  displayName: 'Deploy the web application'
+  dependsOn: Build
+  jobs:
+  - deployment: Deploy
+    pool:
+      vmImage: 'ubuntu-20.04'
+    variables:
+    - group: env
+      WebAppName: 'webapp-cicd-example'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - download: current
+            artifact: drop
+          - task: AzureWebApp@1
+            displayName: 'Azure App Service Deploy'
+            inputs:
+              azureSubscription: 'Azure service connection name'
+              appName: '$(WebAppName)'
+              package: '$(Pipeline.Workspace)/drop/$(buildConfiguration)/*.zip'
