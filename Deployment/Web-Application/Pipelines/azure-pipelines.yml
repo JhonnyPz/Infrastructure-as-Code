@@ -2,9 +2,11 @@ name: Azure app services CI-CD
 
 trigger:
   branches:
-    include: main
+    include: 
+      - main
   pr:
-    include: main
+    include: 
+      - main
 
 variables:
   buildConfiguration: 'Release'
