@@ -56,8 +56,8 @@ stages:
     pool:
       vmImage: 'ubuntu-20.04'
     variables:
-    - group: env
       WebAppName: 'webapp-cicd-example'
+      
     strategy:
       runOnce:
         deploy:
