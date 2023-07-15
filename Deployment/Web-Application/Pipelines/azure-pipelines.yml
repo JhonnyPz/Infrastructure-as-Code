@@ -16,7 +16,6 @@ stages:
       vmImage: 'ubuntu-20.04'
 
     variables:
-      workdir: './Deployment/Web-Application'
       dotnetSdkVersion: '6.x'
 
     steps:
@@ -30,7 +29,22 @@ stages:
       inputs:
         command: 'restore'
         projects: '**/*.csproj'
-    
-    - script: |
-        pwd
-        ls
+
+    - task: DotNetCoreCLI@2
+      displayName: 'Build the project - $(buildConfiguration)'
+      inputs:
+        command: 'build'
+        arguments: '--no-restore --configuration $(buildConfiguration)'
+        projects: '**/*.csproj'
+
+    - task: DotNetCoreCLI@2
+      displayName: 'Publish the project - $(buildConfiguration)'
+      inputs:
+        command: 'publish'
+        projects: '**/*.csproj'
+        publishWebProjects: false
+        arguments: '--no-build --configuration $(buildConfiguration) --output $(Build.ArtifactStagingDirectory)/$(buildConfiguration)'
+        zipAfterPublish: true
+
+    - publish: '$(Build.ArtifactStagingDirectory)'
+      artifact: drop
