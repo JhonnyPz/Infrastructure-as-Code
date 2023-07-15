@@ -33,4 +33,14 @@ jobs:
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
       - name: Test PWD
-        run: pwd
+        run: pwd & ls
+      - name: Build
+        run: dotnet build src/ --configuration Release
+      - name: Publish
+        run: dotnet publish src/ -c Release -o ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/myapp
+      - uses: actions/upload-artifact@v3
+        with:
+          name: myapp
+          path: ${{env.AZURE_WEBAPP_PACKAGE_PATH}}/myapp
+      - name: Test LS
+        run: pwd & ls
