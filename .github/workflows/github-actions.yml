@@ -35,9 +35,9 @@ jobs:
       - name: Build
         run: dotnet build src/ --configuration Release
       - name: Publish
-        run: dotnet publish src/ -c Release -o ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/myapp
+        run: dotnet publish src/ -c Release -o ${{env.DOTNET_ROOT}}/myapp
       - uses: actions/upload-artifact@v3
         with:
           name: myapp
-          path: ./Deployment
+          path: ${{env.DOTNET_ROOT}}/myapp
   
